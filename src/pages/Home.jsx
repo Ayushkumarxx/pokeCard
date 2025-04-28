@@ -7,15 +7,6 @@ import axios from 'axios';
 import "../styles/animations.css";
 import fetchPokemon from "../utils/fetchPokemon";
 
-/*************  ✨ Windsurf Command 🌟  *************/
-/**
- * Home Component
- * 
- * This component serves as the main page displaying the Pokémon cards.
- * It fetches Pokémon data, applies filters and search, and manages the loading state.
- * 
- * @returns {JSX.Element} - A JSX element representing the home page with Pokémon cards.
- */
 const Home = () => {
   const [pokemon, setPokemon] = useState([]);
   const [filteredPokemon, setFilteredPokemon] = useState([]);
@@ -24,12 +15,10 @@ const Home = () => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [allTypes, setAllTypes] = useState([]);
 
-  // Load Pokémon data on component mount
   useEffect(() => {
     const loadPokemonData = async () => {
       setLoading(true);  // Start loading state before calling fetchPokemon
 
-      // Fetch Pokémon data and update state with the result
       // Fetch Pokemon data and update state with the result
       const formattedPokemon = await fetchPokemon(setLoading);
 
@@ -44,12 +33,10 @@ const Home = () => {
     loadPokemonData();
   }, []);
 
-  // Apply filters and search when searchTerm, selectedTypes, or pokemon changes
   // Apply filters and search
   useEffect(() => {
     let results = pokemon;
     
-    // Apply search term filter
     // Apply search term
     if (searchTerm) {
       results = results.filter(p => 
@@ -67,13 +54,11 @@ const Home = () => {
     setFilteredPokemon(results);
   }, [searchTerm, selectedTypes, pokemon]);
 
-  // Handle search term update
   // Handle search
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
-  // Handle type toggle for filtering
   // Handle type toggle
   const handleTypeToggle = (type) => {
     setSelectedTypes(prev => {
@@ -83,7 +68,6 @@ const Home = () => {
     });
   };
 
-  // Display loading animation if data is still loading
   // Loading animation
   if (loading) {
     return (
@@ -100,7 +84,6 @@ const Home = () => {
     );
   }
 
-  // Render main content once loading is complete
 
   return (
     <div className="min-h-screen bg-[#121212] text-white">
@@ -133,6 +116,5 @@ const Home = () => {
     </div>
   );
 };
-/*******  a3bc82a2-0505-41d7-b465-b802ce4d6184  *******/
 
 export default Home;
