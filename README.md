@@ -1,12 +1,27 @@
-# React + Vite
+# 🧩 Pokémon Card App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **Pokémon Card App**!  
+This project was developed as part of my internship to demonstrate clean coding practices, real-time API integration, responsive UI design, and modern React development using **Tailwind CSS**.
 
-Currently, two official plugins are available:
+The app fetches live Pokémon data from **PokeAPI** and allows users to **search**, **filter by type**, and view detailed Pokémon **stats** — all wrapped up in a beautiful, responsive UI!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📜 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Real-time Pokémon Search**: Search for Pokémon by name with live results.
+- **Pokémon Details**: Display Pokémon stats such as HP, Attack, Defense, Speed, and more.
+- **Dynamic Filters**: Filter Pokémon by type, with the ability to toggle multiple types at once.
+- **Responsive Design**: Fully responsive layout for desktop, tablet, and mobile devices using **Tailwind CSS**.
+- **Interactive UI**: Pokémon cards that dynamically change based on the selected filter and display hover effects and animations.
+- **Color Coding**: Pokémon cards dynamically change their background color based on the Pokémon’s type.
+
+---
+
+## 🚀 Technologies Used
+
+- **React**: JavaScript library for building the user interface.
+- **Tailwind CSS**: Utility-first CSS framework for styling and responsive design.
+- **PokeAPI**: Public API that provides data for all Pokémon, including their names, stats, and types.
+- **Axios**: Library to make HTTP requests and interact with the PokeAPI.
+- **React Hooks**: Utilized hooks like `useState`, `useEffect`, and `useRef` for state management and lifecycle methods.
