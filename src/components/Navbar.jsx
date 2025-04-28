@@ -7,7 +7,7 @@ import Exports from "../utils/export";
  */
 const Navbar = ({ onSearch }) => {
   return (
-    <nav className="max-w-[1440px] mx-auto px-4 py-4 flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center">
+    <nav className="max-w-[1440px] mx-auto px-4 py-4 flex flex-col md:flex-row gap-8 md:gap-0 justify-between items-center">
       <div className="flex flex-col gap-2 items-center">
         <img src={Exports.images.logo} alt="logo" className="w-[140px]" />
         <h1 className="text-[18px] font-[700] text-[#FFCB05] text-border-md leading-0">
