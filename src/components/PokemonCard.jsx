@@ -8,9 +8,6 @@ import typeStyles from "../utils/typeStyle";
  * 
  * Props:
  * - type (string): The type of the Pokémon to be displayed as a badge.
- * 
- * @param {string} type - The Pokémon type to be displayed in the badge.
- * @returns {JSX.Element} - A JSX element displaying a Pokémon type badge with animation.
  */
 const TypeBadge = ({ type }) => {
   const style = typeStyles[type] || { color: '#CCCCCC', gradient: 'linear-gradient(135deg, #CCCCCC, #999999)' };
@@ -35,12 +32,6 @@ const TypeBadge = ({ type }) => {
  * - value (number): The value of the stat.
  * - maxValue (number, optional): The maximum value for the stat (default is 200).
  * - color (string): The color of the stat bar (e.g., "#FF5959").
- * 
- * @param {string} label - The stat's label (e.g., "HP").
- * @param {number} value - The stat value to be displayed.
- * @param {number} maxValue - The maximum value for the stat.
- * @param {string} color - The color of the stat bar.
- * @returns {JSX.Element} - A JSX element displaying a stat bar with animation.
  */
 const StatBar = ({ label, value, maxValue = 200, color }) => {
   const percentage = Math.min(100, (value / maxValue) * 100);
@@ -73,9 +64,6 @@ const StatBar = ({ label, value, maxValue = 200, color }) => {
  * 
  * Props:
  * - pokemon (object): The Pokémon object containing its name, id, types, stats, and image.
- * 
- * @param {object} pokemon - The Pokémon object containing all relevant details.
- * @returns {JSX.Element} - A JSX element displaying the Pokémon's card.
  */
 const PokemonCard = ({ pokemon }) => {
   const primaryType = pokemon.types[0];
@@ -115,7 +103,7 @@ const PokemonCard = ({ pokemon }) => {
             src={pokemon.image} 
             alt={pokemon.name} 
             className="w-36 h-36 object-contain transform hover:scale-110 transition duration-500 drop-shadow-lg animate-float"
-            style={{ animation: 'float 3s ease-in-out infinite' }}
+            style={{ animation: 'float 3s ease-in-out infinite' , animationDelay: `${Math.random() * 1000}ms` }}
           />
         </div>
         

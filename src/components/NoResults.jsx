@@ -8,7 +8,7 @@ const NoResults = ({ searchTerm }) => {
   return (
     <div className="flex flex-col items-center justify-center py-20 animate-fadeIn">
       {/* Display the Pokémon search icon in a yellow circle */}
-      <div className="bg-gray-800 p-6 rounded-full mb-6">
+      <div className="bg-gray-800/40 p-6 rounded-full mb-6">
         <FiSearch className="text-[#FFCB05] text-5xl" />
       </div>
       

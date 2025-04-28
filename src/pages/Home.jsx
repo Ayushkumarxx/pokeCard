@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Exports from "../utils/export";
 import "../styles/animations.css";
-import fetchPokemon from "../utils/fetchPokemon";
+import { fetchPokemon, fetchSpecificPokemon } from "../utils/fetchPokemon";
 
 const Home = () => {
   // State to store all Pokémon data, filtered Pokémon data, loading state, search term, selected types, and all unique types.
   const [pokemon, setPokemon] = useState([]);
   const [filteredPokemon, setFilteredPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [allTypes, setAllTypes] = useState([]);
@@ -31,27 +32,48 @@ const Home = () => {
     loadPokemonData();
   }, []);
 
-  // useEffect hook to filter Pokémon based on search term and selected types whenever they change.
+  // Modified useEffect to include specific Pokémon search when no results are found
   useEffect(() => {
-    let results = pokemon;
+    const updateFilteredPokemon = async () => {
+      let results = pokemon;
 
-    // Apply search filter based on the search term
-    if (searchTerm) {
-      results = results.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+      // Apply search filter based on the search term
+      if (searchTerm) {
+        results = results.filter((p) =>
+          p.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
 
-    // Apply type filters
-    if (selectedTypes.length > 0) {
-      results = results.filter((p) =>
-        p.types.some((type) => selectedTypes.includes(type))
-      );
-    }
+      // Apply type filters
+      if (selectedTypes.length > 0) {
+        results = results.filter((p) =>
+          p.types.some((type) => selectedTypes.includes(type))
+        );
+      }
 
-    setFilteredPokemon(results); // Update filtered Pokémon list based on search and type filters
+      // If no results found and we have a search term, fetch the specific Pokémon
+      if (results.length === 0 && searchTerm.trim() !== "") {
+        setSearchLoading(true); // Show loading state while fetching specific Pokémon
+        const specificPokemon = await fetchSpecificPokemon(
+          searchTerm,
+          setSearchLoading
+        );
+
+        // Apply the same type filters to the specific Pokémon results
+        if (selectedTypes.length > 0) {
+          results = specificPokemon.filter((p) =>
+            p.types.some((type) => selectedTypes.includes(type))
+          );
+        } else {
+          results = specificPokemon;
+        }
+      }
+
+      setFilteredPokemon(results);
+    };
+
+    updateFilteredPokemon();
   }, [searchTerm, selectedTypes, pokemon]);
-
   // Function to handle search term input changes
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -99,7 +121,21 @@ const Home = () => {
         />
 
         {/* Display Pokémon cards if there are filtered results, else show NoResults */}
-        {filteredPokemon.length > 0 ? (
+        {searchLoading ? (
+          // Loading state when searching for a specific Pokémon
+          <div className="flex justify-center items-center h-[60vh]">
+            <div className="text-center">
+              <img
+                src={Exports.images.pokeBall}
+                alt="Searching"
+                className="w-16 h-16 mx-auto mb-3 animate-spin"
+              />
+              <p className="text-lg text-[#FFCB05] font-bold text-border-md">
+                Searching for "{searchTerm}"...
+              </p>
+            </div>
+          </div>
+        ) : filteredPokemon.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {filteredPokemon.map((poke) => (
               <Exports.components.PokemonCard key={poke.id} pokemon={poke} />
@@ -111,10 +147,10 @@ const Home = () => {
       </div>
 
       {/* Footer with PokeAPI attribution */}
-      <footer className="bg-[#1A1A1A] py-6 mt-12">
-        <div className="max-w-[1440px] mx-auto px-4 text-center text-gray-400">
+      <footer className="bg-[#1A1A1A] py-6 mt-12 2xl:hidden">
+        <div className="max-w-[1440px] mx-auto px-4 text-center text-gray-400 font-bold ">
           <p>
-            Data provided by{" "}
+            Developed by Ayush Kumar with ❤️
             <a
               href="https://pokeapi.co/"
               className="text-[#FFCB05] hover:underline"
