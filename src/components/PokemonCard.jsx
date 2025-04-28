@@ -83,11 +83,13 @@ const PokemonCard = ({ pokemon }) => {
 
   return (
     <div 
-      className="rounded-2xl overflow-hidden shadow-xl transform hover:-translate-y-2 transition-all duration-500 bg-[#2A2A2A] hover:shadow-2xl animate-fadeIn"
+      className="rounded-2xl overflow-hidden shadow-md transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl animate-fadeIn"
       style={{ 
         animation: 'fadeIn 0.6s ease-out',
-        boxShadow: `0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px ${style.color}40`
+        // boxShadow: `0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px ${style.color}40`,
+        background: `radial-gradient(circle, ${style.color}30, ${style.color}10)`
       }}
+    
     >
       {/* Gradient Header */}
       <div 
@@ -99,7 +101,7 @@ const PokemonCard = ({ pokemon }) => {
         {/* Pokémon Name and ID */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-white capitalize">{pokemon.name}</h2>
-          <div className="text-sm font-mono text-gray-400">#{pokemon.id.toString().padStart(3, '0')}</div>
+          <div className="text-sm font-mono font-bold text-gray-400">#{pokemon.id.toString().padStart(3, '0')}</div>
         </div>
         
         {/* Pokémon Image with Animation */}
