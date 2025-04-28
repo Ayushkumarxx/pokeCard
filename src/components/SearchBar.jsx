@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { FiSearch, FiX } from 'react-icons/fi';
+import React, { useState, useRef } from "react";
+import { FiSearch, FiX } from "react-icons/fi";
 
 /**
  * SearchBar Component
@@ -7,40 +7,43 @@ import { FiSearch, FiX } from 'react-icons/fi';
  * Updates the query state and handles the search functionality.
  */
 function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  // Handle input changes with debounce for search animation
+  // Handle input changes with debounce for search animationconst timerRef = useRef(null);
+  const timerRef = useRef(null);
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuery(value);
-    
+
+    // Clear any existing timer before setting a new one
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
     if (value.length > 0) {
       setIsSearching(true);
-      
-      // Simulate a short search delay for animation
-      const timer = setTimeout(() => {
+
+      timerRef.current = setTimeout(() => {
         if (onSearch) {
           onSearch(value);
           setIsSearching(false);
         }
       }, 300);
-      
-      return () => clearTimeout(timer);
     } else {
       setIsSearching(false);
       if (onSearch) {
-        onSearch('');
+        onSearch(""); // Clear the search results
       }
     }
   };
 
   // Clear search
   const clearSearch = () => {
-    setQuery('');
+    setQuery("");
     setIsSearching(false);
     if (onSearch) {
-      onSearch('');
+      onSearch("");
     }
   };
 
@@ -56,10 +59,10 @@ function SearchBar({ onSearch }) {
           className="rounded-full pl-12 pr-10 py-3 bg-[#333333] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FFCB05] w-64 transition-all duration-300"
         />
         <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
-        
+
         {/* Show clear button when there's a query */}
         {query && (
-          <button 
+          <button
             onClick={clearSearch}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-300"
           >
